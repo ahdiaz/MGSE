@@ -365,7 +365,7 @@ ApplicationsButton.prototype = {
         //this.rightBox.add_actor(this.categoriesApplicationsBox, { span: 1 });
 
 		//this.mainBox.add_actor(applicationsTitle, { span: 1 });
-		this.mainBox.add_actor(this.favoritesBox, { span: 1 });
+		//this.mainBox.add_actor(this.favoritesBox, { span: 1 });
         this.mainBox.add_actor(rightPane, { span: 1 });
         //this.mainBox.add_actor(favoritesTitle, { span: 1 });
 
