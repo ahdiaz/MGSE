@@ -149,6 +149,32 @@ FavoritesButton.prototype = {
     }
 };
 
+function SessionButton() {
+    this._init.apply(this, arguments);
+}
+
+SessionButton.prototype = {
+    _init: function(text, action, icon) {
+		this.text = text;
+		this.action = action;
+
+        this.actor = new St.Button({ reactive: true, label: this.text, style_class: 'application-button', x_align: St.Align.START });
+        this.buttonbox = new St.BoxLayout();
+        this.label = new St.Label({ text: this.text, style_class: 'application-button-label' });
+        //this.icon = this.app.create_icon_texture(APPLICATION_ICON_SIZE);
+        //this.buttonbox.add_actor(this.icon);
+        this.buttonbox.add_actor(this.label);
+        this.actor.set_child(this.buttonbox);
+        /*if (this.app.get_description())
+            this.actor.set_tooltip_text(this.app.get_description());*/
+
+        this.actor.connect('clicked', Lang.bind(this, function() {
+			this.action();
+            appsMenuButton.menu.close();
+		}));
+    }
+};
+
 function MintButton(menuAlignment) {
     this._init(menuAlignment);
 }
@@ -414,6 +440,8 @@ ApplicationsButton.prototype = {
         }));
         this.categoriesBox.add_actor(this.placesButton.actor);
 
+        this._loadSessionItems();
+
         // Not necessary yet.. will be used to show all apps in an "all category"
         //for (directory in this.applicationsByCategory) {
 		//	let apps = this.applicationsByCategory[directory];
@@ -609,6 +637,25 @@ ApplicationsButton.prototype = {
        this._displayButtons(appResults, placesResults);
 
        return false;
+    },
+
+    _loadSessionItems: function() {
+
+        let items = [];
+        let userMenu = getUserMenu();
+
+        items.push(new PopupMenu.PopupSeparatorMenuItem());
+        items.push(new SessionButton(_f('Lock Screen'), Lang.bind(userMenu, userMenu._onLockScreenActivate)));
+        items.push(new SessionButton(_f('Switch User'), Lang.bind(userMenu, userMenu._onLoginScreenActivate)));
+        items.push(new SessionButton(_f('Log Out...'), Lang.bind(userMenu, userMenu._onQuitSessionActivate)));
+        items.push(new SessionButton(_f('Power off...'), Lang.bind(userMenu, userMenu._onSuspendOrPowerOffActivate)));
+
+        items.forEach(Lang.bind(this, function(item) {
+            item.actor.connect('enter-event', Lang.bind(this, function() {
+                if (!this.searchActive) this._clearApplicationsBox(item.actor);
+            }));
+            this.categoriesBox.add_actor(item.actor);
+        }));
     }
 };
 
