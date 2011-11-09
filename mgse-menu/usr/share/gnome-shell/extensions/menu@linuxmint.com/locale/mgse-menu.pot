@@ -32,3 +32,15 @@ msgstr ""
 #: extension.js:320
 msgid "Type to search..."
 msgstr ""
+
+msgid "Lock Screen"
+msgstr ""
+
+msgid "Switch User"
+msgstr ""
+
+msgid "Log Out..."
+msgstr ""
+
+msgid "Power off..."
+msgstr ""

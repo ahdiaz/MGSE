@@ -32,3 +32,15 @@ msgstr "Menú"
 #: extension.js:320
 msgid "Type to search..."
 msgstr "Escribe para buscar..."
+
+msgid "Lock Screen"
+msgstr "Bloquear pantalla"
+
+msgid "Switch User"
+msgstr "Cambiar de usuario"
+
+msgid "Log Out..."
+msgstr "Cerrar sesión..."
+
+msgid "Power off..."
+msgstr "Apagar..."
