@@ -612,6 +612,33 @@ ApplicationsButton.prototype = {
     }
 };
 
+/**
+ * Return the user menu object.
+ */
+function getUserMenu() {
+
+    let userMenu;
+
+    let indicator = Main.panel._statusArea['userMenu'];
+    let children = Main.panel._rightBox.get_children();
+
+    for (let i = children.length - 1; i >= 0; i--) {
+        if (indicator.actor === children[i]) {
+            userMenu = indicator;
+            break;
+        }
+    }
+
+    return userMenu;
+}
+
+/**
+ * Returns the activities button.
+ */
+function getActivitiesButton() {
+    return Main.panel._activitiesButton;
+}
+
 let appsMenuButton;
 let mintMenuOrientation;
 let icon_path;
@@ -630,11 +657,16 @@ function enable() {
         Main.panel._mintPanel.moveMe(appsMenuButton);
         global.log("mintMenu found mintPanel");
     }
+
+    getActivitiesButton().actor.hide();
+    getUserMenu().actor.hide();
 }
 
 function disable() {
     Main.panel._leftBox.remove_actor(appsMenuButton.actor);
     Main.panel._menus.removeMenu(appsMenuButton.menu);
+    getActivitiesButton().actor.show();
+    getUserMenu().actor.show();
 }
 
 function init(metadata) {
