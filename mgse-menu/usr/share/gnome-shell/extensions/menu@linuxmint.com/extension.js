@@ -14,8 +14,8 @@ const Gtk = imports.gi.Gtk;
 const Gio = imports.gi.Gio;
 const Signals = imports.signals;
 
-const Gettext = imports.gettext.domain('gnome-shell-extensions');
-const _ = Gettext.gettext;
+const Gettext = imports.gettext;
+const _ = Gettext.domain('gnome-shell-extensions').gettext;
 
 const ICON_SIZE = 16;
 const FAV_ICON_SIZE = 30;
